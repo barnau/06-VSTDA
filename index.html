@@ -10,7 +10,6 @@
     <!-- endbower -->
     <link rel="stylesheet" href="bower_components/ng-sortable/dist/ng-sortable.min.css" />
     <link rel="stylesheet" href="bower_components/ng-sortable/dist/ng-sortable.style.min.css" />
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="app/css/main.css" />
     <!-- inject:css -->
     <link rel="stylesheet" href="/app/css/main.css">
@@ -18,50 +17,48 @@
 </head>
 
 <body>
-<ul id="navbar">
-  <li><a class="active" href="#home"><strong>ToDo Lists</strong></a></li>
-  <li><a href="#news"><span  class="glyphicon glyphicon-plus"></span> new list</a></li>
-  
-</ul>
-
-
-
     <div class="container" ng-controller="mainCtrl">
-        
+        <ul id="navbar">
+            <li>
+                <a class="active" href="#home"><strong>ToDo Lists</strong></a>
+            </li>
+            <li>
+                <a href="#news"><span  class="glyphicon glyphicon-plus" ng-click="newList()"></span> new list</a>
+                <input ng-model="listName" placeholder="List Name">
+            </li>
+        </ul>
         <div class="row">
-           
             <!-- /////////////////////////////////////////////////////////////// -->
-            <div class="col-md-3">
+            <div class="col-md-3" ng-repeat="list in lists" ng-show="lists.length > 0">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>
-                                <a href="" ng-click=" sort = 'priorityNumber'; reverse = !reverse" class="btn btn-xs btn-primary">		Order by Priority
-						</a>
+                                <a href="" ng-click=" sort = 'priorityNumber'; reverse = !reverse" class="btn btn-xs btn-primary">Order by Priority</a>
                                 <a href="" ng-click="sort = 'description'; reverse = !reverse " class="btn btn-xs btn-primary">
-								Order alphabetically
-						</a>
+                                Order alphabetically</a>
                             </th>
                             <tr>
                                 <tr>
                                     <div class="input-group">
-                                        <span ng-click="createToDo()" class="input-group-addon glyphicon glyphicon-plus" id="basic-addon1"></span>
-                                        <input type="text" class="form-control" ng-model="text" placeholder="Add to do.." aria-describedby="basic-addon1">
+                                        <span ng-click="createToDo(list)" class="input-group-addon glyphicon glyphicon-plus" id="basic-addon1"></span>
+                                        <input type="text" class="form-control" ng-model="list.newText" placeholder="Add to do.." aria-describedby="basic-addon1">
                                         <div class="input-group">
-	                                        <label for="priority">Priority</label>
-	                                        <select ng-model="priority" class="form-control" name="priority">
-	                                            <option value="list-group-item-danger">1</option>
-	                                            <option value="list-group-item-warning">2</option>
-	                                            <option value="list-group-item-success">3</option>
-	                                        </select>
+                                            <label for="priority">Priority</label>
+                                            <select ng-model="list.newPriority" class="form-control" name="priority">
+                                                <option value="list-group-item-danger">1</option>
+                                                <option value="list-group-item-warning">2</option>
+                                                <option value="list-group-item-success">3</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </tr>
+                            </tr>
                     </thead>
-                    <tbody as-sortable="sortableOptions" ng-model="toDos">
-                        <td ng-repeat="toDo in toDos | orderBy: sort : reverse" as-sortable-item class="row as-sortable-item {{toDo.priorityClass}}">
+                    <tbody as-sortable="sortableOptions" ng-model="list.toDos">
+                        <td ng-repeat="toDo in list.toDos | orderBy: list.sort : reverse" as-sortable-item class="row as-sortable-item {{toDo.priorityClass}}">
                             <div id="list-item" as-sortable-item-handle class="as-sortable-item-handle" style="height:50px">
-                                <button type="button" class="btn btn-xs btn-default" aria-label="Left Align" ng-click="removeToDo(toDo)">
+                                <button type="button" class="btn btn-xs btn-default" aria-label="Left Align" ng-click="removeToDo(list, toDo)">
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 </button>
                                 <button ng-click="editing = true" type="button" class="btn btn-xs btn-default" aria-label="Left Align">
@@ -79,7 +76,7 @@
     </div>
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/ng-sortable/dist/ng-sortable.js"></script>
     <!-- endbower -->
