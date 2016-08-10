@@ -37,39 +37,44 @@
 			   <button type="submit" class="btn btn-primary" ng-click="createToDo()">Submit</button>
 			</form>
 		</div>
+
+		<!-- /////////////////////////////////////////////////////////////// -->
 		<div class="col-md-6">
-			<div class="row">
-				<div class="col-md-4">
-					<a href="" ng-click=" sortBy = 'priorityNumber'; reverse = false" class="btn btn-primary">		Order by highest Priority
+		<table class="table table-bordered">
+			<thead>
+				<th>
+					<a href="" ng-click=" sort = 'priorityNumber'; reverse = false" class="btn btn-primary">		Order by highest Priority
 					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="" ng-click="sortBy = 'priorityNumber'; reverse = true" class="btn btn-primary">
+					<a href="" ng-click="sort = 'priorityNumber'; reverse = true" class="btn btn-primary">
 						Order by lowest Priority
 					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="" ng-click="sortBy = 'description'; reverse = !reverse " class="btn btn-primary">
-						Order alphabetically
+					<a href="" ng-click="sort = 'description'; reverse = !reverse " class="btn btn-primary">
+							Order alphabetically
 					</a>
-				</div>
-
-            </div>
-       
-        	
-         <ul as-sortable="sortableOptions" ng-model="toDos" class="row">
-		    <li ng-repeat="toDo in toDos | orderBy: sortBy : reverse" as-sortable-item class="row as-sortable-item {{toDo.priorityClass}}">
-		        <div as-sortable-item-handle class="as-sortable-item-handle" style="height:50px">
-		            <span data-ng-bind="toDo.description"></span>
+				</th>
+			</thead>
+			<tbody as-sortable="sortableOptions" ng-model="toDos">
+				<td ng-repeat="toDo in toDos | orderBy: sort : reverse" as-sortable-item class="row as-sortable-item {{toDo.priorityClass}}">
+		        <div id="list-item" as-sortable-item-handle class="as-sortable-item-handle" style="height:50px">
+		        	<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="removeToDo(toDo)">
+  						<span class="glyphicon glyphicon-ok" aria-hidden="true">Done</span>
+  					</button>
+  					<button ng-click="editing = true" type="button" class="btn btn-default" aria-label="Left Align">
+  						<span class="glyphicon glyphicon-pencil" aria-hidden="true">Edit</span>
+  					</button>
+		            <span ng-hide="editing" data-ng-bind="toDo.description"></span>
+		            <input ng-model="toDo.description" ng-show="editing" >
 		        </div>
-		    </li>
-		</ul>
+		    </td>
+			</tbody>
+		</table>
+		</div>
 
 		
 
 
-		</div>
-	</div>
+		
+	<!-- main row div --></div>
 
 
 </div>

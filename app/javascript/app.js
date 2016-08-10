@@ -38,6 +38,14 @@ var app = angular.module('app', ['as.sortable'])
 		$scope.priority = 0;
 	}
 
+	//remove toDo from list 
+	$scope.removeToDo = function(toDo) {
+		var i = $scope.toDos.indexOf(toDo);
+		$scope.toDos.splice(i, 1);
+		
+
+	}
+
 	//part of ng-sortable
 	// $scope.$watch('toDos', function () {
 	//     console.log(arguments);
