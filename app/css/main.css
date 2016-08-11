@@ -96,4 +96,29 @@ h1 {
   font-size: smaller;
 }
 
+@keyframes textColorChange {
+  from {color: white;}
+  to {color: blue;}
+}
+
+.error {
+ 
+ background-color: red;
+ color: white;
+ animation-name: textColorChange;
+ animation-duration: 4s;
+
+}
+
+.listTitle {
+    border: 1px #ddd solid;
+    border-bottom: none;
+    margin: 0 ;
+    border-: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+
+}
+
 

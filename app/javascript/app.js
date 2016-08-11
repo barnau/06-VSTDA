@@ -12,6 +12,16 @@ var app = angular.module('app', ['as.sortable'])
 
     //handle submit click and add single todo to toDos array
     $scope.createToDo = function(list) {
+    	list.todoError = false;
+
+    	if(list.newText === undefined || list.newPriority === undefined) { 
+    		list.newText = 'Please enter todo and priority';
+    		list.todoError = true;
+    		return;
+    	}
+
+    	console.log(list.newText);
+    	console.log(list.newPriority);
 
         //assign a priority number to toDo based on value from select box
         var priorityNumber = 0;
@@ -45,8 +55,8 @@ var app = angular.module('app', ['as.sortable'])
 
         //set values of inputs back to zero
 
-        $scope.text = '';
-        $scope.priority = 0;
+        list.newText = '';
+        list.priority = 0;
     }
 
     //remove toDo from list 
@@ -56,6 +66,8 @@ var app = angular.module('app', ['as.sortable'])
     }
 
     $scope.newList = function() {
+    	$scope.listNameError = false;
+
         if ($scope.listName !== undefined) {
 
             $scope.lists.push({
@@ -64,6 +76,13 @@ var app = angular.module('app', ['as.sortable'])
             });
             $("input[ng-model='listName']").val('');
             $scope.listName = undefined;
+        } else {
+        	$scope.listNameError = true;
         }
-    }
+    };
+
+     $scope.removeToDo = function(list) {
+    	$scope.lists.splice($scope.lists.indexOf(list), 1)
+    };
+    
 });

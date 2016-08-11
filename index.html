@@ -26,23 +26,29 @@
                 <a href="#news"><span  class="glyphicon glyphicon-plus" ng-click="newList()"></span> new list</a>
                 <input ng-model="listName" placeholder="List Name">
             </li>
+            <li class="error" ng-show="listNameError">
+                Please enter list name.
+            </li>
         </ul>
         <div class="row">
             <!-- /////////////////////////////////////////////////////////////// -->
-            <div class="col-md-3" ng-repeat="list in lists" ng-show="lists.length > 0">
+            <div class="col-md-4" ng-repeat="list in lists" ng-show="lists.length > 0">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <h4 class="listTitle">{{list.name}}<span ng-click="removeToDo(list)" class="glyphicon glyphicon-remove pull-right"></span></h4>
+                        </tr>
+                        <tr>
                             <th>
-                                <a href="" ng-click=" sort = 'priorityNumber'; reverse = !reverse" class="btn btn-xs btn-primary">Order by Priority</a>
-                                <a href="" ng-click="sort = 'description'; reverse = !reverse " class="btn btn-xs btn-primary">
-                                Order alphabetically</a>
+                                <a href="" ng-click=" sort = 'priorityNumber'; reverse = !reverse" class="btn btn-xs btn-primary">Priority</a>
+                                <a href="" ng-click="sort = 'description'; reverse = !reverse " class="btn btn-xs btn-primary">A B C</a>
                             </th>
+                        </tr>    
                             <tr>
                                 <tr>
                                     <div class="input-group">
                                         <span ng-click="createToDo(list)" class="input-group-addon glyphicon glyphicon-plus" id="basic-addon1"></span>
-                                        <input type="text" class="form-control" ng-model="list.newText" placeholder="Add to do.." aria-describedby="basic-addon1">
+                                        <input type="text" ng-click="list.newText = ''" ng-class="{'error' : list.todoError}" class="form-control" ng-model="list.newText" placeholder="Add to do.." aria-describedby="basic-addon1">
                                         <div class="input-group">
                                             <label for="priority">Priority</label>
                                             <select ng-model="list.newPriority" class="form-control" name="priority">
@@ -76,7 +82,7 @@
     </div>
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/ng-sortable/dist/ng-sortable.js"></script>
     <!-- endbower -->
